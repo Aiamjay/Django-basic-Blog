@@ -1,0 +1,29 @@
+{% extends 'nav.html' %}
+{% block custom_css %}
+    {% load staticfiles %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+{% endblock %}
+
+{% block content %}
+    <div class="form-login form-group text-center">
+        <form method="POST">
+            {% csrf_token %}
+            <h1 class="h2 mb-3 font-weight-normal text-success my-3">SignUp</h1>
+            <input type="text" class="form-control my-2" name="username" id="id_username" placeholder="Username:">
+            <input type="text" class="form-control my-2" name="email" id="id_email" placeholder="Email:">
+            <input type="password" class="form-control my-2" name="password1" id="id_password1" placeholder="Password:">
+            <input type="password" class="form-control my-2" name="password2" id="id_password2"
+                   placeholder="Password again:">
+            <button type="submit" class="btn btn-success btn-block my-4">Sign Up</button>
+            <div class="">
+                <ul class="error_list list-group">
+                    {% for field in form %}
+                        <li class="list-group-item list-group-item-primary">
+                            {{ field.errors.as_text }}
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </form>
+    </div>
+{% endblock %}
