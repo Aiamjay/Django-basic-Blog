@@ -124,5 +124,3 @@ STATICFILES_DIRS = [
 # STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 AUTH_USER_MODEL = 'users.CustomUser'
-LOGIN_REDIRECT_URL = 'post_list'
-LOGOUT_REDIRECT_URL = 'post_list'

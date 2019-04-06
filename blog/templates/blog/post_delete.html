@@ -1,0 +1,16 @@
+{% extends 'nav.html' %}
+{% block custom_css %}
+    {% load staticfiles %}
+    <link rel="stylesheet" href="{% static 'blog/css/style.css' %}" type="text/css">
+{% endblock %}
+{% block content %}
+    <div class="delete-panel">
+        <form action="" method="POST">
+            {% csrf_token %}
+            <div class="alert alert-warning" role="alert">
+                Are you sure you want to delete <br><strong class="text-danger">{{ object.title }}</strong>?
+            </div>
+            <input type="submit" class="btn btn-danger btn-block" name="" value="Confirm">
+        </form>
+    </div>
+{% endblock %}

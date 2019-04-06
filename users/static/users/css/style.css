@@ -1,11 +1,19 @@
 .form-login {
     width: 100%;
     max-width: 330px;
-    height: 600px;
+    height: 500px;
     padding: 15px;
     margin-left: auto;
     margin-right: auto;
     margin-top: 200px;
+    border-width: 1px;
+    border-radius: 5px;
+}
+.login-background {
+    height: 96vh;
+    display: flex !important;
+    align-items: center;
+    flex-direction: column;
 }
 
 .logo {
@@ -13,9 +21,10 @@
     height: 72px;
     margin-left: auto;
     margin-right: auto;
+
 }
 
 .error_list {
-    list-style-type:none;
+    list-style-type: none;
     text-align: left;
 }

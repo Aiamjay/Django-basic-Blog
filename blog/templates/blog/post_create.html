@@ -1,0 +1,43 @@
+{% extends 'nav.html' %}
+{% block custom_css %}
+    {% load staticfiles %}
+    <link rel="stylesheet" href="{% static 'blog/css/style.css' %}" type="text/css">
+{% endblock %}
+
+{% block content %}
+    <section>
+        <div class="post_create">
+            <h2 class="text-center text-light" style="margin-top: 3rem;">New Post</h2>
+            <form class="post-form col-12 col-sm-10" method="post" style="margin-top: 2rem;">
+                {% csrf_token %}
+                {#                wjcnote 这个地方传入的是 user.pk#}
+                <input type="hidden" value="{{ user.pk }}" name="author" id="id_author">
+                <div class="card-block">
+                    <div class="card shadow">
+                        <div class="card-header">
+                            <label for="id_title" class="h5 m-0">Title:</label>
+                        </div>
+                        <div class="card-body" style="">
+                            <input placeholder="Title" class="form-control" type="text" name="title" maxlength="200"
+                                   required="" id="id_title" value="{{ post.title }}">
+                        </div>
+                    </div>
+                </div>
+                <div class="card-block mt-4">
+                    <div class="card shadow">
+                        <div class="card-header">
+                            <label for="id_text" class="h5 m-0">Content:</label>
+                        </div>
+                        <div class="card-body mt-1">
+                            <textarea class="form-control" name="text" rows="24" required="" id="id_text">{{ post.text|safe }}</textarea>
+                        </div>
+                    </div>
+                </div>
+                <button href="" type="submit" class="save btn btn-primary btn-block mt-4" style="margin:auto;">
+                    Save
+                </button>
+
+            </form>
+        </div>
+    </section>
+{% endblock %}

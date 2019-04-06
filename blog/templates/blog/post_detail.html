@@ -1,0 +1,42 @@
+{% extends 'blog/post_list.html' %}
+{% block post_content %}
+    <div class="card">
+        <div class="card-header text-secondary">
+            <span class="badge badge-primary">Author: {{ post.author }}</span>
+            <span class="badge badge-info">Created Date: {{ post.created_date|date:"M Y" }}</span>
+            <span class="badge badge-success">
+                    {% if post.published %}
+                        Published
+                    {% else %}
+                        UnPublished
+                    {% endif %}
+            </span>
+        </div>
+        <div class="card-body">
+            <div class="card-title"><p class="h2">{{ post.title }}</p></div>
+            <div class="card-text">
+                {{ post.text }}
+                <p>Never in all their history have men been able truly to conceive of the world as one: a single
+                    sphere, a
+                    globe, having the qualities of a globe, a round earth in which all the directions eventually
+                    meet, in
+                    which there is no center because every point, or none, is center — an equal earth which all men
+                    occupy
+                    as equals. The airman's earth, if free men make it, will be truly round: a globe in practice,
+                    not in
+                    theory.</p>
+            </div>
+        </div>
+
+        <div class="card-footer">
+            <div class="row justify-content-around">
+                {% if post.author.pk == user.pk %}
+                    <a href="{% url 'blog:post_edit' pk=post.pk %}" class="btn btn-warning col-3">Update</a>
+                    <a href="{% url 'blog:post_delete' pk=post.pk %}" class="btn btn-danger col-3">Delete</a>
+                {% endif %}
+                <a href="{% url 'blog:post_list' %}" class="btn btn-secondary col-3">Home</a>
+            </div>
+        </div>
+
+    </div>
+{% endblock %}

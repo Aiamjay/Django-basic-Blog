@@ -1,0 +1,59 @@
+{% extends 'blog/post_list.html' %}
+
+{% block post_content %}
+    {% if list %}
+        {% for post in list %}
+            <div class="card mb-3">
+                <div class="card-header text-secondary">
+                    <span class="badge badge-primary">Author: {{ post.author }}</span>
+                    <span class="badge badge-info">Created Date: {{ post.created_date|date:"M Y" }}</span>
+                    <span class="badge badge-success">
+                    {% if post.published %}
+                        Published
+                    {% else %}
+                        UnPublished
+                    {% endif %}
+                </span>
+                </div>
+                <div class="card-body">
+                    <div class="card-title"><p class="h2">{{ post.title }}</p></div>
+                    <div class="card-text">
+                        {{ post.text }}
+                        <p>Never in all their history have men been able truly to conceive of the world as
+                            one: a single
+                            sphere, a
+                            occupy
+                            as equals. The airman's earth, if free men make it, will be truly round: a globe
+                            in practice,
+                            not in
+                            theory.</p>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <div class="row justify-content-around">
+                        <a href="{% url 'blog:post_publish' pk=post.pk %}"
+                           class="btn btn-outline-success col-2">Publish</a>
+                        <a href="{% url 'blog:post_detail' pk=post.pk %}"
+                           class="btn btn-outline-primary col-2">Detail</a>
+                        <a href="{% url 'blog:post_edit' pk=post.pk %}"
+                           class="btn btn-outline-warning col-2">Update</a>
+                        <a href="{% url 'blog:post_delete' pk=post.pk %}"
+                           class="btn btn-outline-danger col-2">Delete</a>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    {% else %}
+        <div class="card mb-3 message-box">
+            <div class="card-body">
+                <div class="card-text text-center">
+                    It seems that you've got nothing! whoop!
+                </div>
+            </div>
+            <div class="card-footer">
+                <a href="{% url 'blog:post_list'%}"
+                   class="btn btn-outline-success btn-block">Home</a>
+            </div>
+        </div>
+    {% endif %}
+{% endblock %}

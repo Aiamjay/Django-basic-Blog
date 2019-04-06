@@ -1,3 +1,91 @@
 {% extends 'nav.html' %}
+
+{% block custom_css %}
+    {% load staticfiles %}
+    <link rel="stylesheet" href="{% static 'blog/css/style.css' %}" type="text/css">
+{% endblock %}
 {% block content %}
+    <div class="left-panel pt-4">
+        <div class="row post-content ml-3">
+            {% block post_content %}
+                {% if posts_list %}
+                    {% for post in posts_list %}
+                        <div class="card mb-3">
+                            <div class="card-header text-secondary">
+                                <span class="badge badge-primary">Author: {{ post.author }}</span>
+                                <span class="badge badge-info">Created Date: {{ post.created_date|date:"M Y" }}</span>
+                                <span class="badge badge-success">
+                                    {% if post.published %}
+                                        Published
+                                    {% else %}
+                                        UnPublished
+                                    {% endif %}
+                                </span>
+                            </div>
+                            <div class="card-body">
+                                <div class="card-title"><p class="h2">{{ post.title }}</p></div>
+                                <div class="card-text">
+                                    {{ post.text }}
+                                    <p>Never in all their history have men been able truly to conceive of the world as
+                                        one: a single
+                                        sphere, a
+                                        occupy
+                                        as equals. The airman's earth, if free men make it, will be truly round: a globe
+                                        in practice,
+                                        not in
+                                        theory.</p>
+                                </div>
+                            </div>
+                            {% if post.author.pk == user.pk %}
+                                <div class="card-footer">
+                                    <div class="row justify-content-around">
+                                        <a href="{% url 'blog:post_publish' pk=post.pk %}"
+                                           class="btn btn-outline-success col-2">
+                                            {% if post.published %}
+                                                unPublish
+                                            {% else %}
+                                                Publish
+                                            {% endif %}
+                                        </a>
+                                        <a href="{% url 'blog:post_detail' pk=post.pk %}"
+                                           class="btn btn-outline-primary col-2">Detail</a>
+                                        <a href="{% url 'blog:post_edit' pk=post.pk %}"
+                                           class="btn btn-outline-warning col-2">Update</a>
+                                        <a href="{% url 'blog:post_delete' pk=post.pk %}"
+                                           class="btn btn-outline-danger col-2">Delete</a>
+                                    </div>
+                                </div>
+                            {% else %}
+                                <div class="card-footer">
+                                    <div class="row">
+                                        <button class="btn btn-outline-primary btn-block">Detail</button>
+                                    </div>
+                                </div>
+                            {% endif %}
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            {% endblock %}
+        </div>
+        <ul class="list-group text-center panel-content mr-3">
+            {% if not user.is_authenticated %}
+                <li class="list-group-item">
+                    <a href="{% url 'login' %}" class="text-dark font-weight-bold">
+                        <i class="fas fa-user fa-1x mr-2 text-success"></i>Log In</a></li>
+                <li class="list-group-item">
+                    <a href="{% url 'signup' %}" class="text-dark font-weight-bold">
+                        <i class="fas fa-user-plus mr-2 text-success"></i>Sign Up</a></li>
+            {% else %}
+                <li class="list-group-item">
+                    <a href="{% url 'logout' %}" class="text-dark font-weight-bold">
+                        <i class="fas fa-sign-out-alt mr-2 text-success"></i>Log Out</a></li>
+            {% endif %}
+            <li class="list-group-item"><a href="{% url 'blog:post_new' %}" class="text-dark font-weight-bold">
+                <i class="fas fa-plus mr-2 text-success"></i>Add Post</a></li>
+            <li class="list-group-item"><a href="{% url 'blog:drafts' %}" class="text-dark  font-weight-bold">
+                <i class="fas fa-drafting-compass mr-2 text-success"></i>All Drafts</a></li>
+            <li class="list-group-item"><a href="{% url 'blog:works' %}" class="text-dark  font-weight-bold">
+                <i class="fas fa-list mr-2 text-success"></i>All Works</a></li>
+        </ul>
+    </div>
 {% endblock %}
